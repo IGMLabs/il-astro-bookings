@@ -1,34 +1,12 @@
 <body>
   <header>
-    <nav>
-      <ul>
-        <li>
-          <strong>🚀 {{ title | uppercase }}</strong>
-        </li>
-      </ul>
-    </nav>
+      <app-header></app-header>
   </header>
   <main>
-<article>
-  <h3>Marking with {{getAgenciesLenght()}} agencies</h3>
-  <ul>
-    <li *ngFor="let agency of agencies">
-      <span [ngClass]="agency.status |lowercase">{{agency.name}}</span>
-      <ng-template #interplanetary>⭐</ng-template>
-      <ng-template #orbital>🌍</ng-template>
-      <ng-container *ngIf="agency.range==='Interplanetary' then interplanetary;else orbital"></ng-container>
-      <!--<span *ngIf="agency.range==='Interplanetary'">⭐</span>
-      <span *ngIf="agency.range==='Orbital'">🌍</span>-->
-    </li>
-  </ul>
-  <button (click)="reload('agencies')">♻</button>
-</article>
-<aside *ngIf="reloading">♻ Reloading</aside>
+    <app-home-page></app-home-page>
+    <!--<router-outlet></router-outlet>-->
 </main>
-  <router-outlet></router-outlet>
   <footer>
-    <p>🚀 {{title | uppercase}}</p>
-    <p>{{subtitle}}</p>
-    <a [href]="authorUrl">{{author}}</a>
+    <app-footer></app-footer>
   </footer>
 </body>
