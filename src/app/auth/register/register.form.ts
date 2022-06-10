@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormMessagesService } from 'src/app/core/forms/form-messages.service';
+import { FormValidationsService } from 'src/app/core/forms/form-validations.service';
+import { FormBase } from 'src/app/core/forms/form.base';
+import { TransformationsService } from 'src/app/core/utils/transformations.service';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register.form.html',
   styleUrls: ['./register.form.css'],
 })
-export class RegisterForm implements OnInit {
-  public form: FormGroup;
-
-  constructor(formBuilder: FormBuilder) {
+export class RegisterForm extends FormBase implements OnInit {
+  constructor(
+    formBuilder: FormBuilder,
+    fvs: FormValidationsService,
+    fms: FormMessagesService,
+    private ts: TransformationsService
+  ) {
+    super(fms);
     this.form = formBuilder.group(
       {
         name: new FormControl('', [
@@ -37,54 +38,9 @@ export class RegisterForm implements OnInit {
         acceptTerms: new FormControl(false, [Validators.requiredTrue]),
       },
       {
-        validators: [this.passwordMatch],
+        validators: [fvs.passwordMatch],
       }
     );
-  }
-
-  private passwordMatch(form: AbstractControl): ValidationErrors | null {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-    if (!password || !confirmPassword) {
-      return {
-        passwordMatch: 'No passwords provided',
-      };
-    }
-    if (password.value !== confirmPassword.value) {
-      return {
-        passwordMatch: 'Passwords don´t match!',
-      };
-    }
-    return null;
-  }
-
-  public hasError(controlName: string): boolean {
-    const control = this.getControl(controlName);
-    if (!control) return false;
-    return control.invalid;
-  }
-
-  public mustShowMessage(controlName: string): boolean {
-    const control = this.getControl(controlName);
-    if (!control) return false;
-    return control.touched && control.invalid;
-  }
-
-  public getErrorMessage(controlName: string): string {
-    const control = this.getControl(controlName);
-    if (!control) return '';
-    if (!control.errors) return '';
-    const errors = control.errors;
-    let errorMessage = '';
-    errorMessage += errors['required'] ? '🔥 Field is required' : '';
-    errorMessage += errors['email'] ? '🔥 Should be an email address' : '';
-    errorMessage += errors['minlength']
-      ? `🔥 More than ${errors['minlength'].requiredLength} chars`
-      : '';
-    errorMessage += errors['maxlength']
-      ? `🔥 Less than ${errors['maxlength'].requiredLength} chars`
-      : '';
-    return errorMessage;
   }
 
   public getPasswordMatchMessage() {
@@ -92,10 +48,6 @@ export class RegisterForm implements OnInit {
     if (!errors) return '';
     if (errors['passwordMatch']) return errors['passwordMatch'];
     return '';
-  }
-
-  public getControl(controlName: string): AbstractControl | null {
-    return this.form.get(controlName);
   }
 
   public onSave() {

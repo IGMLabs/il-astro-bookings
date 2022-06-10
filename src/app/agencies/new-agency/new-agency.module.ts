@@ -1,20 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { NewAgencyRoutingModule } from './new-agency-routing.module';
-import { NewAgencyPage } from './new-agency.page';
 import { NewAgencyForm } from './new-agency.form';
-import { SharedModule } from '../../shared/shared.module';
-
+import { NewAgencyPage } from './new-agency.page';
 
 @NgModule({
-  declarations: [
-    NewAgencyPage,
-    NewAgencyForm
-  ],
-  imports: [
-    CommonModule,
-    NewAgencyRoutingModule,
-    SharedModule
-  ]
+  declarations: [NewAgencyPage, NewAgencyForm],
+  imports: [CommonModule, NewAgencyRoutingModule, SharedModule],
 })
-export class NewAgencyModule { }
+export class NewAgencyModule {}

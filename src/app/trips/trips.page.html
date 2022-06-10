@@ -1,1 +1,3 @@
-<app-trips-list></app-trips-list>
+<a routerLink="trip/new">➕ Add a new Trip</a>
+<app-trips-list *ngIf="(trips$ | async) as trips;"   [trips]="trips"
+                  (reload)="onReload()"></app-trips-list>

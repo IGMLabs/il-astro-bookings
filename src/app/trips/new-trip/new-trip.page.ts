@@ -4,6 +4,7 @@ import { AgenciesApi } from 'src/app/core/api/agencies.api';
 import { Agency } from 'src/app/core/api/agency.interface';
 import { Trip } from 'src/app/core/api/trip.interface';
 import { TripsApi } from 'src/app/core/api/trips.api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-trip',
@@ -12,17 +13,17 @@ import { TripsApi } from 'src/app/core/api/trips.api';
 })
 export class NewTripPage implements OnInit {
 
-  public agencies: Agency[];
+  public agencies$: Observable<Agency[]>;
 
   constructor(agenciesApi: AgenciesApi, private tripsApi: TripsApi, private router: Router) {
-    this.agencies = agenciesApi.getAll();
+    this.agencies$=agenciesApi.getAll$();
   }
 
   ngOnInit(): void {
   }
 
   onSave(newTripData: Trip){
-    this.tripsApi.post(newTripData);
+    this.tripsApi.post$(newTripData);
     this.router.navigate(['/trips']);
   }
 }

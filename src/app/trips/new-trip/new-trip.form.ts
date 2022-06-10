@@ -31,7 +31,9 @@ export class NewTripForm extends FormBase implements OnInit {
     private tripsApi: TripsApi
     ) {
     super(fms);
-    this.agencies = agenciesApi.getAll();
+    agenciesApi.getAll$().subscribe((data)=> {
+      this.agencies=data;
+    });
     this.form = formBuilder.group({
       agencyId: new FormControl('', [Validators.required]),
       destination: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)] ),
@@ -40,8 +42,6 @@ export class NewTripForm extends FormBase implements OnInit {
       endDate: new FormControl('', [Validators.required] ),
       flightPrice: new FormControl('', [Validators.required, Validators.min(1000000), Validators.max(10000000)] ),
 
-    }, {
-      validators: [fvs.compareDates]
     });
   }
 

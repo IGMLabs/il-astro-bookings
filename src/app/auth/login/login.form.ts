@@ -1,70 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormMessagesService } from 'src/app/core/forms/form-messages.service';
+import { FormBase } from 'src/app/core/forms/form.base';
+
+
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login.form.html',
   styleUrls: ['./login.form.css']
 })
-export class LoginForm implements OnInit {
-  public form: FormGroup;
+export class LoginForm extends FormBase implements OnInit {
 
-  constructor(formBuilder: FormBuilder) {
-    this.form = formBuilder.group(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(10),
-        ])
-      });
-  }
 
-  public hasError(controlName: string): boolean {
-    const control = this.getControl(controlName);
-    if (!control) return false;
-    return control.invalid;
-  }
-
-  public mustShowMessage(controlName: string): boolean {
-    const control = this.getControl(controlName);
-    if (!control) return false;
-    return control.touched && control.invalid;
-  }
-
-  public getErrorMessage(controlName: string): string {
-    const control = this.getControl(controlName);
-    if (!control) return '';
-    if (!control.errors) return '';
-    const errors = control.errors;
-    let errorMessage = '';
-    errorMessage += errors['required'] ? '🔥 Field is required' : '';
-    errorMessage += errors['email'] ? '🔥 Should be an email address' : '';
-    errorMessage += errors['minlength']
-      ? `🔥 More than ${errors['minlength'].requiredLength} chars`
-      : '';
-    errorMessage += errors['maxlength']
-      ? `🔥 Less than ${errors['maxlength'].requiredLength} chars`
-      : '';
-    return errorMessage;
-  }
-
-  public getControl(controlName: string): AbstractControl | null {
-    return this.form.get(controlName);
+  constructor(formBuilder: FormBuilder, fms: FormMessagesService) {
+    super(fms);
+    this.form = formBuilder.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+    });
   }
 
   public onSave() {
-    const { email, password } = this.form.value;
-    const user = { email, password };
-    console.warn('Send user', user);
+    const {email, password} = this.form.value;
+    const login = {email, password};
+    console.warn('Send Login', login);
   }
-  ngOnInit(): void {}
+
+
+  ngOnInit(): void {
+  }
+
 }

@@ -1,15 +1,15 @@
-.sold-out {
-  color: red
+.active {
+  font-weight: bold;
 }
 
-.few-places {
-  color: orange
+.pending {
+  font-style: italic;
 }
 
 .green {
-  color: darkgreen
+  color: green;
 }
 
 .orange {
-  color: orange
+  color: orange;
 }
