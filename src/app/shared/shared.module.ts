@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { AgenciesList } from './components/agencies/agencies.list';
 import { ReloadingComponent } from './components/reloading/reloading.component';
 import { TripsList } from './components/trips/trips.list';
+import { BookingsList } from './components/bookings/bookings.list';
 
 @NgModule({
-  declarations: [ReloadingComponent, AgenciesList, TripsList],
+  declarations: [ReloadingComponent, AgenciesList, TripsList, BookingsList],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
     RouterModule,
@@ -15,6 +16,7 @@ import { TripsList } from './components/trips/trips.list';
     ReloadingComponent,
     AgenciesList,
     TripsList,
+    BookingsList,
   ],
 })
 export class SharedModule {}

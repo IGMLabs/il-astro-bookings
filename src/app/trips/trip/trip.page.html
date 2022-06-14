@@ -1,2 +1,6 @@
-<app-trip-view  *ngIf="(trip$ | async) as trip;" [tripId]="tripId"
-                [trip]="trip"></app-trip-view>
+<article>
+  <header>
+    <strong>{{ tripId | uppercase }}</strong>
+  </header>
+  <pre> {{ trip | json }}</pre>
+</article>

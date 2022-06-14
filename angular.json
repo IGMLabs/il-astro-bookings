@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "il-astro-bookings": {
+    "ab-astro-bookings": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -41,7 +44,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/il-astro-bookings",
+            "outputPath": "dist/ab-astro-bookings",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -78,6 +81,27 @@
               ],
               "outputHashing": "all"
             },
+            "pre-production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.pre-prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -93,10 +117,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "il-astro-bookings:build:production"
+              "browserTarget": "ab-astro-bookings:build:production"
             },
             "development": {
-              "browserTarget": "il-astro-bookings:build:development"
+              "browserTarget": "ab-astro-bookings:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -104,7 +128,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "il-astro-bookings:build"
+            "browserTarget": "ab-astro-bookings:build"
           }
         },
         "test": {
@@ -127,5 +151,5 @@
       }
     }
   },
-  "defaultProject": "il-astro-bookings"
+  "defaultProject": "ab-astro-bookings"
 }

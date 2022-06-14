@@ -1,0 +1,60 @@
+<form [formGroup]="form">
+  <fieldset>
+    <div>
+      <label for="tripId"> Trip </label>
+      <select name="tripId"
+              id="tripId"
+              formControlName="tripId"
+              [attr.aria-invalid]="hasError('tripId')">
+        <option selected
+                value="">Select a tripId</option>
+        <option *ngFor="let trip of trips"
+                [value]="trip.id">
+          {{ trip.destination }}
+        </option>
+      </select>
+      <small *ngIf="mustShowMessage('agencyId')">{{ getErrorMessage('tripId') }}</small>
+    </div>
+    <div>
+      <label for="passengerName"> Passenger Name </label>
+      <input name="passengerName"
+             id="passengerName"
+             type="text"
+             formControlName="passengerName"
+             [attr.aria-invalid]="hasError('passengerName')">
+      <small *ngIf="mustShowMessage('passengerName')">{{ getErrorMessage('passengerName') }}</small>
+    </div>
+    <div>
+      <label for="date"> Start Date </label>
+      <input name="date"
+             id="date"
+             type="date"
+             formControlName="date"
+             [attr.aria-invalid]="hasError('date')">
+      <small *ngIf="mustShowMessage('date')">{{ getErrorMessage('date') }}</small>
+    </div>
+    <div>
+      <label for="luggageKilos"> Places </label>
+      <input name="luggageKilos"
+             id="luggageKilos"
+             type="number"
+             formControlName="luggageKilos"
+             [attr.aria-invalid]="hasError('luggageKilos')">
+      <small *ngIf="mustShowMessage('luggageKilos')">{{ getErrorMessage('luggageKilos') }}</small>
+    </div>
+    <div>
+      <label for="hasPremiumFoodPrice">Has Premium Food</label>
+      <input name="hasPremiumFoodPrice"
+             id="hasPremiumFoodPrice"
+             type="checkbox"
+             formControlName="hasPremiumFoodPrice"
+             [attr.aria-invalid]="hasError('hasPremiumFoodPrice')">
+      <small *ngIf="mustShowMessage('hasPremiumFoodPrice')">{{ getErrorMessage('hasPremiumFoodPrice') }}</small>
+    </div>
+  </fieldset>
+  <div>
+    <button type="submit"
+            (click)="onSubmitClick()"
+            [disabled]="form.invalid"> Send new bookingData</button>
+  </div>
+</form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AgenciesApi } from '../core/api/agencies.api';
 import { Agency } from '../core/api/agency.interface';
 
@@ -9,28 +9,29 @@ import { Agency } from '../core/api/agency.interface';
   styleUrls: ['./agencies.page.css'],
 })
 export class AgenciesPage implements OnInit {
- // public agencies!: Agency[];
+  // public agencies!: Agency[];
   public agencies$: Observable<Agency[]>;
-  public error: Boolean=true;
 
-  private subscriptor= {
-    next : (data: Agency[]) =>{
-      //this.agencies=data;
-  },
-    error: (err:Error) => {
-    console.log('Hay un fallo', err.message);
-    this.error=true
-    },
-  };
+  public error: boolean = false;
+
+  // private subscriptor = {
+  //   next: (data: Agency[]) => {
+  //      this.agencies = data;
+  //   },
+  //   error: (err: Error) => {
+  //     console.log('hay un fallo', err.message);
+  //     this.error = true;
+  //   },
+  // };
 
   constructor(private agenciesApi: AgenciesApi) {
-   // this.agenciesApi.getAll$().subscribe(this.subscriptor);
-    this.agencies$=this.agenciesApi.getAll$();
+    //this.agenciesApi.getAll$().subscribe(this.subscriptor);
+    this.agencies$ = this.agenciesApi.getAll$();
   }
 
   onReload() {
-    this.agenciesApi.getAll$().subscribe((data)=> {
-     // this.agencies=data;
+    this.agenciesApi.getAll$().subscribe((data) => {
+      //this.agencies = data;
     });
   }
 

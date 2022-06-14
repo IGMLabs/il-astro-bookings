@@ -1,21 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { NewTripRoutingModule } from './new-trip-routing.module';
-import { NewTripPage } from './new-trip.page';
-import { NewTripForm } from './new-trip.form';
+import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { NewTripRoutingModule } from './new-trip-routing.module';
+import { NewTripForm } from './new-trip.form';
+import { NewTripPage } from './new-trip.page';
 
 @NgModule({
-  declarations: [
-    NewTripPage,
-    NewTripForm
-  ],
-  imports: [
-    CommonModule,
-    NewTripRoutingModule,
-    SharedModule
-  ]
+  declarations: [NewTripPage, NewTripForm],
+  imports: [CommonModule, NewTripRoutingModule, SharedModule],
 })
-export class NewTripModule { }
+export class NewTripModule {}

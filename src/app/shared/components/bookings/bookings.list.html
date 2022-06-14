@@ -1,0 +1,16 @@
+<article>
+  <h3>Offering {{ bookings.length }} bookings</h3>
+  <ul>
+    <li *ngFor="let booking of bookings">
+      <a [routerLink]="['/','bookings','booking', booking.id]">{{ booking.tripId }}</a>
+      <span> 💸 {{ booking.passengerName}}</span>
+      <span> ⤴️ {{ booking.date | date:'yyyy-MMM-dd' }}</span>
+      <span> ⤵️ {{ booking.luggageKilos' }}</span>
+      <ng-container *ngIf="'booking.hashPremiumFoodPrice' then premium; else bookingOnly"></ng-container>
+      <ng-template #premium> 🍕 </ng-template>
+      <ng-template #bookingOnly> ⭕ </ng-template>
+    </li>
+  </ul>
+  <button (click)="reload('bookings')"> ♻️ </button>
+</article>
+<app-reloading *ngIf="reloading"></app-reloading>

@@ -1,34 +1,34 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/core/api/trip.interface';
 import { TripsApi } from 'src/app/core/api/trips.api';
 
 @Component({
   selector: 'app-trips-list',
   templateUrl: './trips.list.html',
-  styleUrls: ['./trips.list.css']
+  styleUrls: ['./trips.list.css'],
 })
 export class TripsList implements OnInit {
-
-  @Input() public trips: Trip[] = [];
-  @Output() private reload = new EventEmitter();
-
-
-  ngOnInit(): void {
-  }
-  public getTripsLength(){
-    return this.trips.length;
-  }
-
+  trips: Trip[] = [];
   public reloading = false;
-
-  public onReloadClick(list: string){
+  constructor(tripsApi: TripsApi) {
+    tripsApi.getAll$().subscribe((trips) => (this.trips = trips));
+  }
+  public reload(list: string) {
     this.reloading = true;
-    this.reload.emit()
+    console.log('Reloading...' + list);
+  }
+  public getClassForStatus(status: string) {
+    if (status === 'Confirmed') {
+      return 'green';
+    }
+    return 'orange';
   }
 
-  public getClassForStatus(status: string | undefined){
-    if(status === 'Confirmed'){
-      return 'green';
-    } else return 'orange';
+  public getClassForPlaces(places: number) {
+    if (places === 0) return 'sold-out';
+    if (places < 8) return 'few-places';
+    return '';
   }
+
+  ngOnInit(): void {}
 }

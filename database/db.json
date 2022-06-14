@@ -1,6 +1,25 @@
 {
   "users": [],
-  "bookings": [],
+  "bookings": [
+    {
+      "id": "space-y-moon-1-fasfasdfasd-2022-06-14",
+      "tripId": "space-y-moon-1",
+      "passengerName": "fasfasdfasd",
+      "date": "2022-06-14",
+      "luggageKilos": 10,
+      "hasPremiumFoodPrice": "false",
+      "status": "Waiting"
+    },
+    {
+      "id": "space-y-mars-2-342141324-2022-05-10",
+      "tripId": "space-y-mars-2",
+      "passengerName": "342141324",
+      "date": "2022-05-10",
+      "luggageKilos": 12,
+      "hasPremiumFoodPrice": true,
+      "status": "Waiting"
+    }
+  ],
   "agencies": [
     {
       "id": "space-y",

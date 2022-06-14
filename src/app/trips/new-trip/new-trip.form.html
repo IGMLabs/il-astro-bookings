@@ -1,59 +1,61 @@
 <form [formGroup]="form">
+  <fieldset>
+    <div>
+      <label for="agencyId"> Agency </label>
+      <select name="agencyId"
+              id="agencyId"
+              formControlName="agencyId"
+              [attr.aria-invalid]="hasError('agencyId')">
+        <option selected
+                value="">Select a agencyId</option>
+        <option *ngFor="let agency of agencies"
+                [value]="agency.id">
+          {{ agency.name }}
+        </option>
+      </select>
+      <small *ngIf="mustShowMessage('agencyId')">{{ getErrorMessage('agencyId') }}</small>
+    </div>
+    <div>
+      <label for="destination"> Destination </label>
+      <input name="destination"
+             id="destination"
+             type="text"
+             formControlName="destination"
+             [attr.aria-invalid]="hasError('destination')">
+      <small *ngIf="mustShowMessage('destination')">{{ getErrorMessage('destination') }}</small>
+    </div>
+    <div>
+      <label for="places"> Places </label>
+      <input name="places"
+             id="places"
+             type="number"
+             formControlName="places"
+             [attr.aria-invalid]="hasError('places')">
+      <small *ngIf="mustShowMessage('places')">{{ getErrorMessage('places') }}</small>
+    </div>
+    <div>
+      <label for="startDate"> Start Date </label>
+      <input name="startDate"
+             id="startDate"
+             type="date"
+             formControlName="startDate"
+             [attr.aria-invalid]="hasError('startDate')">
+      <small *ngIf="mustShowMessage('startDate')">{{ getErrorMessage('startDate') }}</small>
+    </div>
+    <div>
+      <label for="endDate"> End Date </label>
+      <input name="endDate"
+             id="endDate"
+             type="date"
+             formControlName="endDate"
+             [attr.aria-invalid]="hasError('endDate')">
+      <small *ngIf="mustShowMessage('endDate')">{{ getErrorMessage('endDate') }}</small>
+    </div>
+    <small>{{ getDatesRangeMessage() }}</small>
+  </fieldset>
   <div>
-    <fieldset>
-      <div>
-        <label for="agencyId"> Agency</label>
-        <select name="agencyId"
-                formControlName="agencyId">
-          <option value="">Select an agency</option>
-          <option *ngFor="let agency of agencies"
-                  [value]="agency.id">{{ agency.name }}</option>
-        </select>
-        <small *ngIf="mustShowMessage('agency')">{{ getErrorMessage('agency') }}</small>
-      </div>
-      <div>
-        <label for="destination"> Destination</label>
-        <input name="destination"
-              type="text"
-              formControlName="destination"
-              [attr.aria-invalid]="hasError('destination')">
-        <small *ngIf="mustShowMessage('destination')">{{ getErrorMessage('destination') }}</small>
-      </div>
-      <div>
-        <label for="places"> Places</label>
-        <input name="places"
-              type="number"
-              formControlName="places"
-              [attr.aria-invalid]="hasError('places')">
-        <small *ngIf="mustShowMessage('places')">{{ getErrorMessage('places') }}</small>
-      </div>
-      <div>
-        <label for="startDate"> Start Date</label>
-        <input name="startDate"
-              type="date"
-              formControlName="startDate"
-              [attr.aria-invalid]="hasError('startDate')">
-        <small *ngIf="mustShowMessage('startDate')">{{ getErrorMessage('startDate') }}</small>
-      </div>
-      <div>
-        <label for="endDate"> End Date</label>
-        <input name="endDate"
-              type="date"
-              formControlName="endDate"
-              [attr.aria-invalid]="hasError('endDate')">
-        <small *ngIf="mustShowMessage('endDate')">{{ getErrorMessage('endDate') }}</small>
-
-      </div>
-      <div>
-        <label for="flightPrice"> Flight Price</label>
-        <input name="flightPrice"
-              type="number"
-              formControlName="flightPrice"
-              [attr.aria-invalid]="hasError('flightPrice')">
-        <small *ngIf="mustShowMessage('flightPrice')">{{ getErrorMessage('flightPrice') }}</small>
-      </div>
-    </fieldset>
+    <button type="submit"
+            (click)="onSubmitClick()"
+            [disabled]="form.invalid"> Send new trip data </button>
   </div>
-  <button [disabled]="form.invalid"
-          (click)="onSubmitClick()">Save</button>
 </form>
