@@ -26,7 +26,7 @@ export class ContactForm extends FormBase implements OnInit {
     super(fms);
     this.form = formBuilder.group({
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl(''),
       message: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
@@ -36,8 +36,13 @@ export class ContactForm extends FormBase implements OnInit {
   }
 
   public onSave() {
-    const contact = this.form.value;
-    console.warn('Send contact message', contact);
+    const contactOriginal = this.form.value;
+    console.warn('contactOriginal', contactOriginal);
+    const contactApi = {
+      ...contactOriginal,
+      email: contactOriginal.email.email,
+    };
+    console.warn('contactApi', contactApi);
   }
   ngOnInit(): void {}
 }

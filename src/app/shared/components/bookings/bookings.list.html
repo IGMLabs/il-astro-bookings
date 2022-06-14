@@ -5,12 +5,12 @@
       <a [routerLink]="['/','bookings','booking', booking.id]">{{ booking.tripId }}</a>
       <span> 💸 {{ booking.passengerName}}</span>
       <span> ⤴️ {{ booking.date | date:'yyyy-MMM-dd' }}</span>
-      <span> ⤵️ {{ booking.luggageKilos' }}</span>
+      <span> ⤵️ {{ booking.luggageKilos}}</span>
       <ng-container *ngIf="'booking.hashPremiumFoodPrice' then premium; else bookingOnly"></ng-container>
       <ng-template #premium> 🍕 </ng-template>
       <ng-template #bookingOnly> ⭕ </ng-template>
     </li>
   </ul>
-  <button (click)="reload('bookings')"> ♻️ </button>
+  <button (click)="onReloadClick('bookings')"> 😎 </button>
 </article>
 <app-reloading *ngIf="reloading"></app-reloading>

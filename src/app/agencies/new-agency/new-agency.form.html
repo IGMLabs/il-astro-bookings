@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <fieldset>
-    <div>
+    <!-- <div>
       <label for="name"> Agency name </label>
       <input name="name"
              id="name"
@@ -8,7 +8,10 @@
              formControlName="name"
              [attr.aria-invalid]="hasError('name')">
       <small *ngIf="mustShowMessage('name')">{{ getErrorMessage('name') }}</small>
-    </div>
+    </div> -->
+    <app-template-control [form]="form" formControlName="name"
+  label="Name" placeHolder="Your Name"> </app-template-control>
+
     <div>
       <label for="range"> Operation range </label>
       <select name="range"
@@ -18,25 +21,32 @@
         <option selected
                 value="">Select a range</option>
         <option *ngFor="let range of ranges"
-                [value]="range.id">
-          {{ range.name }}
-        </option>
+                [value]="range.id">{{ range.name }}</option>
       </select>
       <small *ngIf="mustShowMessage('range')">{{ getErrorMessage('range') }}</small>
     </div>
+
+
+
     <div>
       <label for="status"> Operative status </label>
       <ng-container *ngFor="let status of statuses">
-        <label for="status-{{status}}">
+
+        <app-template-control [form]="form" formControlName="status"
+        label="status-{{status}}" placeHolder="" inputType="radio"> </app-template-control>
+
+        <!-- <label for="status-{{status}}">
           <input name="status"
                  type="radio"
                  id="status-{{status}}"
                  formControlName="status"
                  [value]="status">
           {{ status }}
-        </label>
+        </label> -->
       </ng-container>
     </div>
+
+
   </fieldset>
   <div>
     <button type="submit"
