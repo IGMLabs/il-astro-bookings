@@ -15,7 +15,10 @@
                    (reload)="onReload()">
 </app-agencies-list>
 
+<app-trips-list *ngIf="(trips$ | async) as trips; else waiting" [trips]="trips">
+</app-trips-list>
+
 <ng-template #waiting>
   <h4>Waiting...</h4>
 </ng-template>
-<h4 *ngIf="error"> Ha habido un error </h4>
+<!--<h4 *ngIf="error"> Ha habido un error </h4>-->
