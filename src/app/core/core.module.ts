@@ -1,14 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TitleComponent } from './components/title/title.component';
+import { ErrorInterceptor } from './api/error.interceptor';
+import { AuthInterceptor } from '../auth/api/auth.interceptor';
+import { StorageBase } from './utils/storage.base';
+import { LocalStorage } from './utils/local-storage.service';
+import { SessionStorage } from './utils/session-storage.service';
 
 @NgModule({
   declarations: [HeaderComponent, TitleComponent, FooterComponent],
   imports: [CommonModule, RouterModule, HttpClientModule],
   exports: [HeaderComponent, FooterComponent],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: StorageBase, useFactory: ()=>{
+      if (new Date().getDay()==1) return SessionStorage; else return localStorage;}
+    },
+  ],
 })
+
 export class CoreModule {}

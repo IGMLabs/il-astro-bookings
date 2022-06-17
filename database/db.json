@@ -1,5 +1,12 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$NoRIl01Y9T3ZNiMZAo1SzOjWeXbTMe2oOL0nfZshuPx8.a3OQBdlm",
+      "name": "ivan",
+      "id": 1
+    }
+  ],
   "bookings": [
     {
       "id": "space-y-moon-1-fasfasdfasd-2022-06-14",
@@ -44,6 +51,18 @@
       "name": "tatata",
       "range": "Interplanetary",
       "status": "Active"
+    },
+    {
+      "id": "fads",
+      "name": "fads",
+      "range": "Interplanetary",
+      "status": null
+    },
+    {
+      "id": "chantada",
+      "name": "chantada",
+      "range": "Orbital",
+      "status": null
     }
   ],
   "trips": [

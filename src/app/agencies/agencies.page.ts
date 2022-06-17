@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { AgenciesApi } from '../core/api/agencies.api';
 import { Agency } from '../core/api/agency.interface';
 import { Trip } from '../core/api/trip.interface';
@@ -27,13 +27,19 @@ export class AgenciesPage implements OnInit {
     );
     //const q= this.route.snapshot.queryParamMap.get('q');
 
-    this.route.queryParamMap.subscribe((queryParamMap) =>{
-    console.log(queryParamMap.get('q'))
-    const q = queryParamMap.get('q');
-    if (q){
-      this.trips$ =this.tripsApi.getByText$(q);
-    }
-  });
+    //this.route.queryParamMap.subscribe((queryParamMap) =>{
+    //console.log(queryParamMap.get('q'))
+    //const q = queryParamMap.get('q');
+    //if (q){
+     // this.trips$ =this.tripsApi.getByText$(q);
+    //}
+  //});
+
+    this.trips$= this.route.queryParamMap.pipe(
+      map((qpm) =>qpm.get('q')),
+      switchMap((agencyId)=>this.tripsApi.getByText$(agencyId))
+    )
+
   }
 
   onReload() {
