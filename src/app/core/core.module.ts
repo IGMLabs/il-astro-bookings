@@ -10,6 +10,7 @@ import { AuthInterceptor } from '../auth/api/auth.interceptor';
 import { StorageBase } from './utils/storage.base';
 import { LocalStorage } from './utils/local-storage.service';
 import { SessionStorage } from './utils/session-storage.service';
+import { Storage } from './utils/storage.interface';
 
 @NgModule({
   declarations: [HeaderComponent, TitleComponent, FooterComponent],
@@ -18,8 +19,11 @@ import { SessionStorage } from './utils/session-storage.service';
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: StorageBase, useFactory: ()=>{
-      if (new Date().getDay()==1) return SessionStorage; else return localStorage;}
+    {provide: StorageBase,
+      useFactory: (): Storage =>{
+        if (new Date().getDay()==1) return new SessionStorage();
+        else return new LocalStorage();
+      }
     },
   ],
 })
